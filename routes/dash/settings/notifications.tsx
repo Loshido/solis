@@ -1,14 +1,15 @@
 import { define } from "utils";
 import { LucideChevronLeft, LucideClockArrowDown, LucideVibrate  } from "lucide-preact"
+import Button from "components/button.tsx";
 
 export default define.page(() => {
     return <>
         {/* Navigation bar */}
         <header class="p-4 flex flex-row items-center justify-center relative">
             <nav class="absolute top-0 left-4 flex flex-row items-center h-full gap-1 *:transition-colors">
-                <a href="/dash/settings" class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucideChevronLeft class="w-10 h-10 p-2.5 group-hover:stroke-solis"/>
-                </a>
+                <Button href="/dash/settings">
+                    <LucideChevronLeft/>
+                </Button>
             </nav>
             <a class="font-bold text-2xl select-none">
                 Notifications

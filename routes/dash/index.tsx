@@ -4,36 +4,37 @@ import { LucideCog, LucideInfo, LucidePlug, LucidePackagePlus } from "lucide-pre
 import Searchbar from "components/dash/searchbar.tsx";
 import ChannelInvitation from "components/channels/invitation.tsx";
 import ChannelCard from "components/channels/card.tsx"
-
+import Button from "components/button.tsx";
 
 export default define.page(() => {
     return <>
         {/* Navigation bar */}
         <header class="p-4 flex flex-row items-center justify-center relative">
             <div class="absolute top-0 left-4 flex flex-row items-center h-full gap-1 *:transition-colors">
-                <a class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucidePackagePlus class="w-10 h-10 p-2.5 group-hover:stroke-solis"/>
-                </a>
-                <a class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucideInfo class="w-10 h-10 p-2.5 group-hover:stroke-solis"/>
-                </a>
+                <Button>
+                    <LucidePackagePlus/>
+                </Button>
+                <Button>
+                    <LucideInfo/>
+                </Button>
             </div>
             <a href="/dash" class="font-bold text-2xl select-none cursor-pointer hover:text-solis">
                 Solis
             </a>
             <nav class="absolute top-0 right-4 flex flex-row items-center h-full gap-1 *:transition-colors">
-                <a href="/dash/settings" class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucideCog class="w-10 h-10 p-2.5 group-hover:stroke-solis"/>
-                </a>
-                <a class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucidePlug class="w-10 h-10 p-2.5 rotate-45 group-hover:stroke-solis"/>
-                </a>
+                <Button href="/dash/settings">
+                    <LucideCog/>
+                </Button>
+                <Button>
+                    <LucidePlug class="rotate-45"/>
+                </Button>
             </nav>
         </header>
 
         {/* Search bar */}
         <div class="mx-4 my-2">
             <Searchbar 
+            // deno-lint-ignore require-await
             onUpdate={async (input) => {
                 console.info(input)
             }} 

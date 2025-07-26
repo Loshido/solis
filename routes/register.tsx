@@ -1,7 +1,7 @@
 import { define } from "utils";
 import { LucideInfo, LucidePackagePlus } from "lucide-preact"
 import Button from "components/button.tsx";
-import Login from "islands/auth/login.tsx";
+import Register from "islands/auth/register.tsx";
 
 export default define.page(() => {
     return <>
@@ -21,9 +21,9 @@ export default define.page(() => {
         </header>
         <main class="no-scroll h-full flex flex-col items-center justify-between p-8">
             <span/>
-            <Login/>
-            <a href="/register" class="text-black/50 hover:text-solis transition-colors cursor-pointer select-none">
-                Don't have an account? Sign up
+            <Register/>
+            <a href="/" class="text-black/50 hover:text-solis transition-colors cursor-pointer select-none">
+                Have an account? Sign in
             </a>
         </main>
     </>

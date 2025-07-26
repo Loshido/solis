@@ -1,4 +1,5 @@
 import { LucidePlug, LucideX } from "lucide-preact"
+import Button from "../button.tsx";
 
 interface InvitationProps {
     name: string,
@@ -12,11 +13,11 @@ export default ({ name, onAccept, onDeny }: InvitationProps) => <div
         { name }
     </p>
     <div class="flex flex-row items-center justify-between gap-1">
-        <a class="rounded-full hover:bg-solis/10 group cursor-pointer" onClick={onAccept}>
-            <LucidePlug class="w-10 h-10 p-2.5 rotate-45 group-hover:stroke-solis"/>
-        </a>
-        <a class="rounded-full hover:bg-red-600/10 group cursor-pointer" onClick={onDeny}>
-            <LucideX class="w-10 h-10 p-2.5 group-hover:stroke-red-600"/>
-        </a>
+        <Button onClick={onAccept}>
+            <LucidePlug class="rotate-45"/>
+        </Button>
+        <Button onClick={onDeny} className="hover:bg-red-600/10 *:group-hover:stroke-red-600">
+            <LucideX class="group-hover:stroke-red-600"/>
+        </Button>
     </div>
 </div>

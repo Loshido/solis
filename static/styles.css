@@ -12,3 +12,22 @@ body:has(.no-scroll){
     display: flex;
     flex-direction: column;
 }
+
+@keyframes shine {
+    to {
+        left: 200%;
+    }
+}
+.shine:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 200%;
+    height: 100%;
+    transform: skewX(-20deg);
+    background-image: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+}
+.shine:hover:after {
+    animation: shine 1.3s ease;
+}

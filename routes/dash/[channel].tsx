@@ -1,28 +1,29 @@
 import { define } from "utils";
 import { LucideChevronLeft, LucideAirVent, LucideSquarePen, LucideCopy, LucideUsers } from "lucide-preact"
+import Button from "components/button.tsx";
 
 export default define.page((props) => {
     return <>
         {/* Navigation bar */}
         <header class="p-4 h-16 flex flex-row items-center justify-center relative">
             <nav class="absolute top-0 left-4 flex flex-row gap-2 items-center h-full *:transition-colors">
-                <a href="/dash" class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucideChevronLeft class="w-10 h-10 p-2.5 group-hover:stroke-solis"/>
-                </a>
+                <Button href="/dash">
+                    <LucideChevronLeft/>
+                </Button>
                 <a class="font-bold text-lg select-none">
                     { props.params.channel }
                 </a>
             </nav>
             <div class="absolute top-0 right-4 flex flex-row items-center h-full gap-1 *:transition-colors">
-                <a class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucideUsers class="w-10 h-10 p-2.5 group-hover:stroke-solis"/>
-                </a>
-                <a class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucideCopy class="w-10 h-10 p-2.5 group-hover:stroke-solis"/>
-                </a>
-                <a class="rounded-full hover:bg-solis/10 group cursor-pointer">
-                    <LucideSquarePen class="w-10 h-10 p-2.5 group-hover:stroke-solis"/>
-                </a>
+                <Button>
+                    <LucideUsers/>
+                </Button>
+                <Button>
+                    <LucideCopy/>
+                </Button>
+                <Button>
+                    <LucideSquarePen/>
+                </Button>
             </div>
         </header>
 
