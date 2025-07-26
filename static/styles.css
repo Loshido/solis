@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+    --color-solis: #3954DB;
+}
+
+body:has(.no-scroll){
+    overflow: hidden;
+    width: 100dvw;
+    height: 100dvh;
+    
+    display: flex;
+    flex-direction: column;
+}
