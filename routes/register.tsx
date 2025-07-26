@@ -1,16 +1,15 @@
 import { define } from "utils";
-import { LucideInfo, LucidePackagePlus } from "lucide-preact"
+import { LucideInfo } from "lucide-preact"
 import Button from "components/button.tsx";
 import Register from "islands/auth/register.tsx";
+import Pwa from "islands/auth/pwa.tsx";
 
 export default define.page(() => {
     return <>
         {/* Navigation bar */}
         <header class="p-4 flex flex-row items-center justify-center relative">
             <div class="absolute top-0 left-4 flex flex-row items-center h-full gap-1 *:transition-colors">
-                <Button>
-                    <LucidePackagePlus/>
-                </Button>
+                <Pwa/>
                 <Button>
                     <LucideInfo/>
                 </Button>

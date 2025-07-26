@@ -1,19 +1,18 @@
 import { define } from "utils";
-import { LucideCog, LucideInfo, LucidePlug, LucidePackagePlus } from "lucide-preact"
+import { LucideCog, LucideInfo, LucidePlug } from "lucide-preact"
 
 import Searchbar from "components/dash/searchbar.tsx";
 import ChannelInvitation from "components/channels/invitation.tsx";
 import ChannelCard from "components/channels/card.tsx"
 import Button from "components/button.tsx";
+import PwaButton from "islands/auth/pwa.tsx";
 
 export default define.page(() => {
     return <>
         {/* Navigation bar */}
         <header class="p-4 flex flex-row items-center justify-center relative">
             <div class="absolute top-0 left-4 flex flex-row items-center h-full gap-1 *:transition-colors">
-                <Button>
-                    <LucidePackagePlus/>
-                </Button>
+                <PwaButton/>
                 <Button>
                     <LucideInfo/>
                 </Button>
