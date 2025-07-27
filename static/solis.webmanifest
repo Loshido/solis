@@ -1,0 +1,21 @@
+{
+   "name": "Solis",
+   "short_name": "Solis",
+   "start_url": "/dash",
+   "theme_color": "#fff",
+   "background_color": "#fff",
+   "description": "Lightweight PWA for receiving webhooks and sending real-time push notifications to your device.",
+   "display": "standalone",
+   "icons": [
+        {
+            "src": "fav/solis-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "fav/solis-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ]
+}

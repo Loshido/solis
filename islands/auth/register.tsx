@@ -66,7 +66,7 @@ export default () => {
                     const issue = await register(username.value)
                     if(issue) error.value = issue
                 }
-            }}
+            }} autoComplete="username"
             class="px-5 py-3.5 bg-solis/25 text-xl font-semibold text-solis rounded-xl
             flex flex-row gap-2 items-center w-fit outline-none text-center
             hover:bg-solis/30 transition-colors"/>
