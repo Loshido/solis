@@ -1,6 +1,6 @@
 import { SignJWT, jwtVerify, type JWTPayload } from "@panva/jose"
 
-interface Payload extends JWTPayload {
+export interface Payload extends JWTPayload {
     id: string,
     username: string
 }

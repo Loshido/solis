@@ -1,6 +1,8 @@
 import { createDefine } from "fresh";
+import { Payload } from "services/jwt.ts";
 
-// deno-lint-ignore no-empty-interface
-export interface State {}
+export interface State {
+    payload?: Payload
+}
 
 export const define = createDefine<State>();
