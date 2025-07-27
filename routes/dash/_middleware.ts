@@ -3,6 +3,7 @@ import parseCookies from "services/cookie.ts";
 import { verify } from "services/jwt.ts";
 
 export default define.middleware(async (ctx) => {
+    // If not connected, gets redirected to /
     const cookieHeader = ctx.req.headers.get('cookie')
     if(!cookieHeader) return ctx.redirect('/')
 

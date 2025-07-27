@@ -5,8 +5,7 @@ export interface Payload extends JWTPayload {
     username: string
 }
 
-const AUDIENCE = Deno.env.get('JWT_AUDIENCE') || 'solis-client'
-const ISSUER = Deno.env.get('JWT_ISSUER') || 'loshido-solis'
+import { JWT_ISSUER, JWT_AUDIENCE } from "./env.ts"
 const JWT_SECRET = Deno.env.get('JWT_SECRET')
 if(!JWT_SECRET) throw new Error('JWT_SECRET environmnent variable is missing')
 
@@ -17,8 +16,8 @@ export async function sign(payload: Exclude<JWTPayload, Payload>) {
     const jwt = await new SignJWT(payload)
       .setProtectedHeader({ alg })
       .setIssuedAt()
-      .setIssuer(ISSUER)
-      .setAudience(AUDIENCE)
+      .setIssuer(JWT_ISSUER)
+      .setAudience(JWT_AUDIENCE)
       .setExpirationTime('24h')
       .sign(secret)
 
@@ -28,8 +27,8 @@ export async function sign(payload: Exclude<JWTPayload, Payload>) {
 export async function verify(jwt: string): Promise<Payload | null> {
     try {
         const { payload } = await jwtVerify<Payload>(jwt, secret, {
-            issuer: ISSUER,
-            audience: AUDIENCE,
+            issuer: JWT_ISSUER,
+            audience: JWT_AUDIENCE,
         })
         return payload
     } catch {

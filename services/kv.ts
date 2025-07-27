@@ -16,7 +16,7 @@ export type Challenge = {
 // credentials/[user.id] -> Credential
 export interface Credential {
     id: string,
-    publicKey: string,
+    publicKey: Uint8Array,
     createdat: number,
     counter: number,
     transports: AuthenticatorTransportFuture[]

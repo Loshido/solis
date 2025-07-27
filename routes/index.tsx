@@ -4,6 +4,7 @@ import { page } from "fresh";
 import parseCookies from "services/cookie.ts";
 import { verify } from "services/jwt.ts";
 export const handler = define.handlers({
+    // If connected, gets redirected to /dash
     async GET(ctx) {
         const cookieHeader = ctx.req.headers.get('cookie')
         if(!cookieHeader) return page()

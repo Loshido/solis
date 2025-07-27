@@ -1,6 +1,6 @@
 import { decodeBase64Url } from "@std/encoding/base64url";
 import { define } from "utils";
-import { verifyRegistrationResponse } from "@simplewebauthn/server"
+import { verifyRegistrationResponse, VerifiedRegistrationResponse } from "@simplewebauthn/server"
 import { RP_ORIGIN, RP_ID, DOMAIN } from "services/env.ts";
 import kv, { type Challenge } from "services/kv.ts"
 import { sign } from "services/jwt.ts";
@@ -8,14 +8,14 @@ import { sign } from "services/jwt.ts";
 export const handler = define.handlers(async ctx => {
     // Ensure request have a body
     if(ctx.req.method !== 'POST') {
-        return new Response('You must attach your credentials', {
+        return new Response('You must attach your credential.', {
             status: 400
         })
     }
 
     // Extract body
     const { user: userData, credential } = await ctx.req.json()
-    if(!userData || !credential) return new Response('You must attach correct credentials', {
+    if(!userData || !credential) return new Response('You must attach correct credential.', {
         status: 400
     })
 
@@ -34,13 +34,13 @@ export const handler = define.handlers(async ctx => {
     const challenge = await db.get<Challenge>(['challenges', clientDataJSON.challenge])
     if(!challenge.value || challenge.value.id !== user.id) {
         db.close()
-        return new Response('Stored challenge not matching', {
+        return new Response('Challenges not matching!', {
             status: 400
         })
     }
     
     // Verify challenge
-    let verification
+    let verification: VerifiedRegistrationResponse 
     try {
         verification = await verifyRegistrationResponse({
             response: credential,
@@ -51,26 +51,28 @@ export const handler = define.handlers(async ctx => {
     } catch(error) {
         console.error(error)
         db.close()
-        return new Response('Verification failed', {
+        return new Response('Verification failed.', {
             status: 400
         })
     }
-    if(!verification.verified) {
+    if(!verification.verified || !verification.registrationInfo) {
         db.close()
-        return new Response('Verification failed', {
+        return new Response('Verification failed.', {
             status: 400
         })
     }
+
+    const { credential: response } = verification.registrationInfo
    
     // Store user
     await db.set(['users', user.id], user)
     // Store credentials
     await db.set(['credentials', user.id], {
-        id: credential.id,
-        publicKey: credential.response.publicKey,
+        id: response.id,
+        publicKey: response.publicKey,
         createdat: Date.now(),
-        counter: 0,
-        transports: credential.response.transports
+        counter: response.counter,
+        transports: response.transports
     })
     // Delete challenge
     await db.delete(['challenges', clientDataJSON.challenge])

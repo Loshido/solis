@@ -1,21 +1,21 @@
 import { decodeBase64Url } from "@std/encoding/base64url";
 import { define } from "utils";
 import kv, { type Challenge, type Credential } from "services/kv.ts";
-import { verifyAuthenticationResponse } from "@simplewebauthn/server";
+import { VerifiedAuthenticationResponse, verifyAuthenticationResponse } from "@simplewebauthn/server";
 import { DOMAIN, RP_ID, RP_ORIGIN } from "services/env.ts";
 import { sign } from "services/jwt.ts";
 
 export const handler = define.handlers(async ctx => {
     // Ensure request have a body
     if(ctx.req.method !== 'POST') {
-        return new Response('You must attach your credentials', {
+        return new Response('You must attach your credential.', {
             status: 400
         })
     }
 
     // Extract body
     const { user, credential } = await ctx.req.json()
-    if(!user || !credential) return new Response('You must attach correct credentials', {
+    if(!user || !credential) return new Response('You must attach correct credential.', {
         status: 400
     })
 
@@ -28,7 +28,7 @@ export const handler = define.handlers(async ctx => {
     const challenge = await db.get<Challenge>(['challenges', clientDataJSON.challenge])
     if(!challenge.value || challenge.value.id !== user.id) {
         db.close()
-        return new Response('Stored challenge not matching', {
+        return new Response('Challenges not matching!', {
             status: 400
         })
     }
@@ -42,9 +42,8 @@ export const handler = define.handlers(async ctx => {
         })
     }
     // Verify challenge
-    let verification
+    let verification: VerifiedAuthenticationResponse
     try {
-        console.log(storedCredential.value.publicKey)
         verification = await verifyAuthenticationResponse({
             response: credential,
             expectedChallenge: challenge.key[1] as string,
@@ -52,7 +51,7 @@ export const handler = define.handlers(async ctx => {
             expectedRPID: RP_ID,
             credential: {
                 id: credential.id,
-                publicKey: decodeBase64Url(storedCredential.value.publicKey),
+                publicKey: storedCredential.value.publicKey,
                 counter: storedCredential.value.counter,
                 transports: storedCredential.value.transports
             }
@@ -70,21 +69,23 @@ export const handler = define.handlers(async ctx => {
             status: 400
         })
     }
-   
+
     // Store credentials
     await db.set(['credentials', user.id], {
         ...storedCredential.value,
-        counter: storedCredential.value.counter++
+        counter: verification.authenticationInfo.newCounter
     })
     // Delete challenge
     await db.delete(['challenges', clientDataJSON.challenge])
     db.close()
-
+    
+    // Sign a JWT
     const jwt = await sign({
         id: user.id,
         username: user.username
     })
-
+    
+    // Give JWT to the end user
     return new Response('ok', {
         status: 200,
         headers: {

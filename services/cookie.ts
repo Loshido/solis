@@ -1,3 +1,4 @@
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cookie
 export default (cookies: string): { [key: string]: string } => {
     const map: { [key: string]: string } = {}
     

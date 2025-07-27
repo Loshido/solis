@@ -2,4 +2,10 @@ export const RP_NAME = Deno.env.get('RP_NAME') || 'Solis'
 export const RP_ID = Deno.env.get('RP_ID') ||'localhost'
 export const RP_ORIGIN = Deno.env.get('RP_ORIGIN') || 'http://localhost:8000'
 export const DOMAIN = Deno.env.get('DOMAIN') || 'localhost'
+
 export const KV_PATH = Deno.env.get('KV_PATH') || './data/kv.db'
+
+// JWT
+export const JWT_AUDIENCE = Deno.env.get('JWT_AUDIENCE') || 'solis-client'
+export const JWT_ISSUER = Deno.env.get('JWT_ISSUER') || 'loshido-solis'
+// JWT_SECRET -> .env

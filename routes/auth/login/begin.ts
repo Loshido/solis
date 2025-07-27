@@ -24,7 +24,7 @@ export const handler = define.handlers(async ctx => {
     }
     if(!user) {
         db.close()
-        return new Response('Failed to login', {
+        return new Response(`${username} doesn't exist!`, {
             status: 400
         })
     }
@@ -33,7 +33,7 @@ export const handler = define.handlers(async ctx => {
     const { value: credential } = await db.get<Credential>(['credentials', user.id])
     if(!credential) {
         db.close()
-        return new Response('Failed to login', {
+        return new Response('No credential linked to your account.', {
             status: 400
         })
     }
