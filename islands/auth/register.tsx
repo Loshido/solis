@@ -6,6 +6,7 @@ import { decodeBase64Url, encodeBase64Url } from "@std/encoding/base64url";
 async function register(username: string) {
     if(!(await isCompatible())) throw new Error('your device is not compatible with passkey services')
     
+    // fetch credential options
     const origin = location.origin
     const began = await fetch(origin + `/auth/register/begin?username=${username}`,)
     if(!began.ok) {
@@ -13,6 +14,7 @@ async function register(username: string) {
         return
     } 
 
+    // .into
     const options = await began.json()
     options.challenge = decodeBase64Url(options.challenge)
     options.user.id = decodeBase64Url(options.user.id)
@@ -25,19 +27,20 @@ async function register(username: string) {
         return
     }
 
-    console.log(credential)
-
     options.user.id = encodeBase64Url(options.user.id)
+    // if(credential.response instanceof AuthenticatorAttestationResponse) {
+    //     console.log(credential.response.getPublicKey())
+    // }
 
-    const result = JSON.stringify({ 
-        credential: credential.toJSON(), 
-        user: options.user,
-    })
+    // Send passkey public details
     const completed = await fetch(origin + '/auth/register/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'same-origin',
-        body: result
+        body: JSON.stringify({ 
+            credential: credential.toJSON(), 
+            user: options.user,
+        })
     })
 
     if(!completed.ok) {
@@ -46,7 +49,8 @@ async function register(username: string) {
         return
     }
 
-    location.assign(location.origin + '/dash')
+    // Go to dashboard
+    // location.assign(location.origin + '/dash')
 
     console.log('registered as', username)
 }
@@ -67,7 +71,7 @@ export default () => {
             }}
             class="px-5 py-3.5 bg-solis/25 text-xl font-semibold text-solis rounded-xl
             flex flex-row gap-2 items-center w-fit outline-none text-center
-            cursor-pointer select-none hover:bg-solis/30 transition-colors"/>
+            hover:bg-solis/30 transition-colors"/>
         <div class="px-5 py-3.5 bg-solis text-xl font-semibold text-white rounded-xl
             flex flex-row gap-2 items-center
             cursor-pointer select-none hover:bg-solis/90 transition-colors"

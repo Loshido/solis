@@ -9,12 +9,6 @@ export default function SearchBar({ onUpdate }: SearchProps) {
         <LucideSearch class="stroke-solis/60"/>
         <input type="text" placeholder="Search channels"
             class="text-solis/60 text-xl outline-0 w-full h-full"
-            onSearch={(event) => {
-                console.log(event, 'aaaaaa')
-            }}
-            onKeyUp={(event) => {
-                console.log(event, 'aaaaaa')
-            }}
             onInput={(event) => {
                 console.log('aaaaaaaaaaahhhhhhhhhh', event)
                 const t = event.target as HTMLInputElement

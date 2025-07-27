@@ -13,6 +13,7 @@ export const handler = define.handlers(async ctx => {
     
     const db = await kv()
 
+    // Check if user exists
     let user: User | undefined = undefined
     const entries = db.list<User>({ prefix: ['users'] })
     for await (const entry of entries) {
@@ -27,6 +28,8 @@ export const handler = define.handlers(async ctx => {
             status: 400
         })
     }
+
+    // Get credential's id
     const { value: credential } = await db.get<Credential>(['credentials', user.id])
     if(!credential) {
         db.close()

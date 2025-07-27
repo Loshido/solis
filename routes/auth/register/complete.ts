@@ -1,13 +1,12 @@
 import { decodeBase64Url } from "@std/encoding/base64url";
 import { define } from "utils";
 import { verifyRegistrationResponse } from "@simplewebauthn/server"
-import { isoBase64URL } from "@simplewebauthn/server/helpers"
 import { RP_ORIGIN, RP_ID, DOMAIN } from "services/env.ts";
 import kv, { type Challenge } from "services/kv.ts"
 import { sign } from "services/jwt.ts";
 
 export const handler = define.handlers(async ctx => {
-    // Check for method
+    // Ensure request have a body
     if(ctx.req.method !== 'POST') {
         return new Response('You must attach your credentials', {
             status: 400
@@ -31,6 +30,7 @@ export const handler = define.handlers(async ctx => {
     }
 
     const db = await kv()
+    // Get the challenge we store in first phase.
     const challenge = await db.get<Challenge>(['challenges', clientDataJSON.challenge])
     if(!challenge.value || challenge.value.id !== user.id) {
         db.close()
@@ -69,17 +69,20 @@ export const handler = define.handlers(async ctx => {
         id: credential.id,
         publicKey: credential.response.publicKey,
         createdat: Date.now(),
-        counter: 0
+        counter: 0,
+        transports: credential.response.transports
     })
     // Delete challenge
     await db.delete(['challenges', clientDataJSON.challenge])
     db.close()
 
+    // Sign a JWT
     const jwt = await sign({
         id: user.id,
         username: user.username
     })
 
+    // Give JWT to the end user
     return new Response('ok', {
         status: 200,
         headers: {

@@ -6,6 +6,7 @@ import { decodeBase64Url } from "@std/encoding/base64url";
 async function login(username: string) {
     if(!(await isCompatible())) throw new Error('your device is not compatible with passkey services')
     
+    // Request credential's options
     const origin = location.origin
     const began = await fetch(origin + `/auth/login/begin?username=${username}`,)
     if(!began.ok) {
@@ -21,6 +22,8 @@ async function login(username: string) {
             type: c.type
         })
     )
+
+    // Prompt user to validate credential
     const credential = await navigator.credentials.get({
         publicKey: options
     }) as PublicKeyCredential | null
@@ -29,6 +32,8 @@ async function login(username: string) {
         console.error(`failed to create credentials!`)
         return
     }
+
+    // Give payload back to serveur for verification
     const completed = await fetch(origin + '/auth/login/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -42,12 +47,13 @@ async function login(username: string) {
         })
     })
 
-    if(!completed.ok) {
+    if(!completed.ok || !completed.headers.has('Set-Cookie')) {
         console.error(`/auth/login/completed failed (${completed.status})`)
         console.error(await completed.text())
         return
     }
 
+    // Go to dashboard
     location.assign(location.origin + '/dash')
 
     console.log('logged as', username)
@@ -68,7 +74,7 @@ export default () => {
             }}
             class="px-5 py-3.5 bg-solis/25 text-xl font-semibold text-solis rounded-xl
             flex flex-row gap-2 items-center w-fit outline-none text-center
-            cursor-pointer select-none hover:bg-solis/30 transition-colors"/>
+            hover:bg-solis/30 transition-colors"/>
         <div class="px-5 py-3.5 bg-solis text-xl font-semibold text-white rounded-xl
             flex flex-row gap-2 items-center
             cursor-pointer select-none hover:bg-solis/90 transition-colors"

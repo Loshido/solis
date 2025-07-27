@@ -6,7 +6,7 @@ import { DOMAIN, RP_ID, RP_ORIGIN } from "services/env.ts";
 import { sign } from "services/jwt.ts";
 
 export const handler = define.handlers(async ctx => {
-    // Check for method
+    // Ensure request have a body
     if(ctx.req.method !== 'POST') {
         return new Response('You must attach your credentials', {
             status: 400
@@ -24,10 +24,10 @@ export const handler = define.handlers(async ctx => {
     const clientDataJSON = JSON.parse(_clientDataJSON)
 
     const db = await kv()
+    // Get the challenge back
     const challenge = await db.get<Challenge>(['challenges', clientDataJSON.challenge])
     if(!challenge.value || challenge.value.id !== user.id) {
         db.close()
-        console.log(challenge.value, user.id)
         return new Response('Stored challenge not matching', {
             status: 400
         })
@@ -41,19 +41,20 @@ export const handler = define.handlers(async ctx => {
             status: 400
         })
     }
-    console.log(storedCredential.value)
     // Verify challenge
     let verification
     try {
+        console.log(storedCredential.value.publicKey)
         verification = await verifyAuthenticationResponse({
             response: credential,
             expectedChallenge: challenge.key[1] as string,
             expectedOrigin: RP_ORIGIN,
             expectedRPID: RP_ID,
             credential: {
-                id: storedCredential.value.id,
+                id: credential.id,
                 publicKey: decodeBase64Url(storedCredential.value.publicKey),
-                counter: storedCredential.value.counter
+                counter: storedCredential.value.counter,
+                transports: storedCredential.value.transports
             }
         })
     } catch(error) {

@@ -16,10 +16,10 @@
     "imports": {
         "@deno/kv": "npm:@deno/kv@^0.10.0",
         "@panva/jose": "jsr:@panva/jose@^6.0.12",
-        "@simplewebauthn/server": "jsr:@simplewebauthn/server@^13.1.2",
+        "@simplewebauthn/server": "jsr:@simplewebauthn/server@^13.1.1",
         "@std/encoding": "jsr:@std/encoding@^1.0.10",
         "fresh": "jsr:@fresh/core@^2.0.0-alpha.34",
-        "lucide-preact": "npm:lucide-preact@^0.525.0",
+        "lucide-preact": "npm:lucide-preact@^0.526.0",
         "preact": "npm:preact@^10.26.6",
         "@preact/signals": "npm:@preact/signals@^2.0.4",
         "tailwindcss": "npm:tailwindcss@^4.1.11",

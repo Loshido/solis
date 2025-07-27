@@ -12,6 +12,7 @@ export const handler = define.handlers(async ctx => {
     }
 
     const db = await kv()
+    // Check duplicates
     const entries = db.list<User>({ prefix: ['users'] })
     for await (const entry of entries) {
         if(entry.value.username === username) {
@@ -22,6 +23,7 @@ export const handler = define.handlers(async ctx => {
         }
     }
 
+    // Generate credential options
     const id = crypto.randomUUID()
     const options = {
         challenge: encodeBase64Url(crypto.getRandomValues(new Uint8Array(32)).buffer),
@@ -51,12 +53,17 @@ export const handler = define.handlers(async ctx => {
         timeout: 60000,
     }
 
-    await db.set(['challenges', options.challenge], {
-        ...options.user,
-        id
-    }, {
-        expireIn: 60000
-    })
+    // Save challenge details for next authentification step.
+    await db.set(
+        ['challenges', options.challenge], 
+        {
+            ...options.user,
+            id
+        }, 
+        {
+            expireIn: 60000
+        }
+    )
     db.close()
     return new Response(JSON.stringify(options), {
         headers: { "Content-Type": "application/json" }

@@ -1,5 +1,6 @@
 import { openKv } from "@deno/kv"
 import { KV_PATH } from "./env.ts";
+import type { AuthenticatorTransportFuture } from "@simplewebauthn/server"
 
 export default async () => {
     return await openKv(KV_PATH)
@@ -17,7 +18,8 @@ export interface Credential {
     id: string,
     publicKey: string,
     createdat: number,
-    counter: number
+    counter: number,
+    transports: AuthenticatorTransportFuture[]
 }
 
 // users/[user.id] -> User
