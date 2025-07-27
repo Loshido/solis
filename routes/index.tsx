@@ -25,7 +25,7 @@ export const handler = define.handlers({
 import { LucideInfo } from "lucide-preact"
 import Button from "components/button.tsx";
 import Login from "islands/auth/login.tsx";
-import PwaButton from "islands/auth/pwa.tsx";
+import PwaButton from "islands/pwa.tsx";
 export default define.page(() => {
     return <>
         {/* Navigation bar */}

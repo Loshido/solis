@@ -31,3 +31,14 @@ body:has(.no-scroll){
 .shine:hover:after {
     animation: shine 1.3s ease;
 }
+@keyframes error {
+    from { 
+        color: white; 
+    }
+    to { 
+        color: #F00;
+    }
+}
+.error {
+    animation: error .1s ease-in;
+}

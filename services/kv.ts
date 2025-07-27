@@ -1,5 +1,38 @@
 import { openKv } from "@deno/kv"
+import { KV_PATH } from "./env.ts";
 
 export default async () => {
-    return await openKv('./data/kv.db')
+    return await openKv(KV_PATH)
+}
+
+// challenges/[challenge] -> Challenge
+export type Challenge = {
+    id: string,
+    name: string,
+    displayName: string
+}
+
+// credentials/[user.id] -> Credential
+export interface Credential {
+    id: string,
+    publicKey: string,
+    createdat: number,
+    counter: number
+}
+
+// users/[user.id] -> User
+export interface User {
+    id: string,
+    username: string,
+    channels: string[]
+}
+
+//channels/[channel.id] -> Channel
+export interface Channel {
+    id: string,
+    secret: string,
+    owner: string,
+    image?: string,
+    color?: `#${string}` | 
+        `rgb(${number}, ${number}, ${number})`
 }

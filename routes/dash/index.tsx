@@ -3,7 +3,7 @@ import { LucideCog, LucideInfo, LucidePlug } from "lucide-preact"
 
 import Button from "components/button.tsx";
 import Channels from "islands/dash/channels.tsx";
-import PwaButton from "islands/auth/pwa.tsx";
+import PwaButton from "islands/pwa.tsx";
 
 export default define.page(() => {
     return <>
