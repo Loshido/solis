@@ -1,23 +1,13 @@
 import { define } from "utils";
 import { page } from "fresh";
 
-import parseCookies from "services/cookie.ts";
-import { verify } from "services/jwt.ts";
+import isAuthentificated from "services/cookie.ts";
 export const handler = define.handlers({
     // If connected, gets redirected to /dash
     async GET(ctx) {
-        const cookieHeader = ctx.req.headers.get('cookie')
-        if(!cookieHeader) return page()
-
-        const cookies = parseCookies(cookieHeader)
-        if(!Object.hasOwn(cookies, 'solis')) {
-            return page()
-        }
-
-        const solis = cookies['solis']
-        const verified = await verify(solis)
+        const verified = await isAuthentificated(ctx.req)
         if(!verified) return page()
-
+            
         ctx.state.payload = verified
         return ctx.redirect('/dash')
     }

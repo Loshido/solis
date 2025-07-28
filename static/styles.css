@@ -42,3 +42,21 @@ body:has(.no-scroll){
 .error {
     animation: error .1s ease-in;
 }
+@keyframes blurrish {
+    from { backdrop-filter: blur(0); }
+    to { backdrop-filter: blur(8px); }
+}
+.blurrish{
+    animation: blurrish .5s ease-in;
+}
+@keyframes appear {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.appear { animation: appear .5s ease-in }
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.spin{ animation: spin linear infinite }

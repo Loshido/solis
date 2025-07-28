@@ -5,18 +5,19 @@ interface Action {
     label: string,
     action?: () => Promise<void> | void
     href?: string,
-    enabled?: boolean
+    enabled?: boolean,
 }
 
 interface SettingProps {
-    actions: Action[]
+    actions: Action[],
+    dialog?: JSX.Element
 }
-export default ({ actions }: SettingProps) => {
+export default ({ actions, dialog }: SettingProps) => {
     return <main class="flex flex-col px-2 py-3 select-none">
         {
             actions.map((action, i) => <a key={i}
                 href={action.href ? action.href : undefined}
-                onClick={action.action ? action.action : undefined}
+                onClick={action.action}
                 class="flex flex-nowrap flex-row items-center gap-4 px-2 py-2 min-h-16 hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
                 <div class={`h-16 w-16 rounded-xl aspect-square flex items-center justify-center transition-colors ${ !action.enabled ? ' bg-black/5 ' : ' bg-solis/25' }`}>
                     { action.logo }
@@ -27,6 +28,9 @@ export default ({ actions }: SettingProps) => {
                     </p>
                 </div>
             </a>)
+        }
+        {
+            dialog
         }
     </main>
 }

@@ -2,6 +2,7 @@ import { LucideFingerprint } from "lucide-preact";
 import { isCompatible } from "./lib.ts";
 import { useSignal } from "@preact/signals";
 import { decodeBase64Url } from "@std/encoding/base64url";
+import { useSignalRef } from "@preact/signals/utils"
 
 async function login(username: string): Promise<string | void> {
     if(!(await isCompatible())) throw new Error('your device is not compatible with passkey services')
@@ -60,17 +61,22 @@ async function login(username: string): Promise<string | void> {
 }
 
 export default () => {
+    const input = useSignalRef<HTMLInputElement | null>(null)
     const username = useSignal('')
     const error = useSignal('')
     return <section class="grid grid-rows-2 gap-2 items-center relative">
-        <input placeholder="username" value={username} onInput={event => {
+        <input ref={input} placeholder="username" value={username} onInput={event => {
                 username.value = event.currentTarget.value
                 if(error.value.length > 0 && username.value.length >= 6) error.value = ''
             }} autoComplete="username"
             onKeyPress={async (event) => {
-                if(event.key === 'Enter' && username.value.length >= 6) {
+                if(event.key === 'Enter' && username.value.length >= 6 && input.value) {
+                    input.value.disabled = true
                     const issue = await login(username.value)
+                    input.value.disabled = false
+
                     if(issue) error.value = issue
+                    else event.currentTarget.value = ''
                 }
             }}
             class="px-5 py-3.5 bg-solis/25 text-xl font-semibold text-solis rounded-xl
@@ -84,8 +90,14 @@ export default () => {
                     error.value = 'You must provide a valid username!'
                     return
                 }
+                if(!input.value) return
+
+                input.value.disabled = true
                 const issue = await login(username.value)
+                input.value.disabled = false
+                
                 if(issue) error.value = issue
+                else input.value.value = ''
             }}>
             <LucideFingerprint/>
             Sign in with Passkey

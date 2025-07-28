@@ -2,6 +2,7 @@ import { encodeBase64Url } from "@std/encoding/base64url";
 import { define } from "utils";
 import { RP_ID } from "services/env.ts";
 import kv, { type User, Credential } from "services/kv.ts";
+import log from "services/log.ts";
 
 export const handler = define.handlers(async ctx => {
     const username = ctx.url.searchParams.get('username')
@@ -33,6 +34,7 @@ export const handler = define.handlers(async ctx => {
     const { value: credential } = await db.get<Credential>(['credentials', user.id])
     if(!credential) {
         db.close()
+        log('auth', `/auth/login/begin caught an account without credential`, 'DEBUG')
         return new Response('No credential linked to your account.', {
             status: 400
         })
@@ -61,6 +63,7 @@ export const handler = define.handlers(async ctx => {
     })    
     db.close()
 
+    log('auth', `/auth/login/begin challenge initiated ${ options.challenge.slice(0, 6) }`, 'TRACE')
     return new Response(JSON.stringify({ options, id: encodedId }), {
         headers: { "Content-Type": "application/json" }
     })

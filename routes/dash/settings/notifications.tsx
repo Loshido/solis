@@ -1,7 +1,7 @@
 import { define } from "utils";
 import { LucideChevronLeft  } from "lucide-preact"
 import Button from "components/button.tsx";
-import Notifications from "islands/dash/settings/notifications.tsx";
+import Notifications from "islands/settings/notifications.tsx";
 
 export default define.page(() => {
     return <>

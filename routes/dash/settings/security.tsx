@@ -1,7 +1,7 @@
 import { define } from "utils";
 import { LucideChevronLeft } from "lucide-preact"
 import Button from "components/button.tsx";
-import Security from "islands/dash/settings/security.tsx";
+import Security from "islands/settings/security.tsx";
 
 export default define.page(() => {
     return <>

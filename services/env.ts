@@ -4,6 +4,7 @@ export const RP_ORIGIN = Deno.env.get('RP_ORIGIN') || 'http://localhost:8000'
 export const DOMAIN = Deno.env.get('DOMAIN') || 'localhost'
 
 export const KV_PATH = Deno.env.get('KV_PATH') || './data/kv.db'
+export const LOG_PATH = Deno.env.get('LOG_PATH') || './data/logs/'
 
 // JWT
 export const JWT_AUDIENCE = Deno.env.get('JWT_AUDIENCE') || 'solis-client'

@@ -4,6 +4,7 @@ import { verifyRegistrationResponse, VerifiedRegistrationResponse } from "@simpl
 import { RP_ORIGIN, RP_ID, DOMAIN } from "services/env.ts";
 import kv, { type Challenge } from "services/kv.ts"
 import { sign } from "services/jwt.ts";
+import log from "services/log.ts";
 
 export const handler = define.handlers(async ctx => {
     // Ensure request have a body
@@ -34,6 +35,7 @@ export const handler = define.handlers(async ctx => {
     const challenge = await db.get<Challenge>(['challenges', clientDataJSON.challenge])
     if(!challenge.value || challenge.value.id !== user.id) {
         db.close()
+        log('auth', `/auth/register/complete caught an unmatchted challenge`, 'DEBUG')
         return new Response('Challenges not matching!', {
             status: 400
         })
@@ -77,6 +79,9 @@ export const handler = define.handlers(async ctx => {
     // Delete challenge
     await db.delete(['challenges', clientDataJSON.challenge])
     db.close()
+
+    log('auth', `/auth/register/complete challenge succeed ${ (challenge.key[1] as string).slice(0, 6) }`, 'TRACE')
+    log('auth', `${user.username} (${user.id}) successfuly registered`, 'INFO')
 
     // Sign a JWT
     const jwt = await sign({

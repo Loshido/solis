@@ -1,5 +1,6 @@
 import { LucideFingerprint } from "lucide-preact"
 import { useSignal } from "@preact/signals";
+import { useSignalRef } from "@preact/signals/utils"
 import { isCompatible } from "./lib.ts";
 import { decodeBase64Url, encodeBase64Url } from "@std/encoding/base64url";
 
@@ -53,6 +54,7 @@ async function register(username: string): Promise<string | void> {
 }
 
 export default () => {
+    const input = useSignalRef<HTMLInputElement | null>(null)
     const username = useSignal('')
     const error = useSignal('')
 
@@ -63,8 +65,13 @@ export default () => {
             }}
             onKeyPress={async (event) => {
                 if(event.key === 'Enter' && username.value.length >= 6) {
+                    
+                    event.currentTarget.disabled = true
                     const issue = await register(username.value)
+                    event.currentTarget.disabled = false
+
                     if(issue) error.value = issue
+                    else event.currentTarget.value = ''
                 }
             }} autoComplete="username"
             class="px-5 py-3.5 bg-solis/25 text-xl font-semibold text-solis rounded-xl
@@ -78,8 +85,14 @@ export default () => {
                     error.value = 'You must provide a valid username!'
                     return
                 }
+                if(!input.value) return
+
+                input.value.disabled = true
                 const issue = await register(username.value)
+                input.value.disabled = false
+
                 if(issue) error.value = issue
+                else input.value.value = ''
             }}>
             <LucideFingerprint/>
             Sign up with Passkey

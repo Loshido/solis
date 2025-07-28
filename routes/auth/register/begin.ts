@@ -2,6 +2,7 @@ import { define } from "utils";
 import { encodeBase64Url } from "@std/encoding/base64url"
 import kv, { type User } from "services/kv.ts";
 import { RP_ID, RP_NAME } from "services/env.ts";
+import log from "services/log.ts";
 
 export const handler = define.handlers(async ctx => {
     const username = ctx.url.searchParams.get('username')
@@ -51,6 +52,8 @@ export const handler = define.handlers(async ctx => {
         { expireIn: 60000 }
     )
     db.close()
+    log('auth', `/auth/register/begin challenge initiated ${ options.challenge.slice(0, 6) }`, 'TRACE')
+
     return new Response(JSON.stringify(options), {
         headers: { "Content-Type": "application/json" }
     })
