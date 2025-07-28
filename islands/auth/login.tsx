@@ -65,7 +65,7 @@ export default () => {
     const username = useSignal('')
     const error = useSignal('')
     return <section class="grid grid-rows-2 gap-2 items-center relative">
-        <input ref={input} placeholder="username" value={username} onInput={event => {
+        <input autofocus ref={input} placeholder="username" value={username} onInput={event => {
                 username.value = event.currentTarget.value
                 if(error.value.length > 0 && username.value.length >= 6) error.value = ''
             }} autoComplete="username"

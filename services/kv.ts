@@ -13,7 +13,7 @@ export type Challenge = {
     displayName: string
 }
 
-// credentials/[user.id] -> Credential
+// credentials/[username] -> Credential
 export interface Credential {
     id: string,
     publicKey: Uint8Array,
@@ -22,18 +22,19 @@ export interface Credential {
     transports: AuthenticatorTransportFuture[]
 }
 
-// users/[user.id] -> User
+// users/[username] -> User
 export interface User {
     id: string,
     username: string,
-    channels: string[]
+    channels: string[],
+    invitations: string[]
 }
 
 //channels/[channel.id] -> Channel
 export interface Channel {
     id: string,
-    secret: string,
-    owner: string,
+    owner: string, // username
+    description: string,
     image?: string,
     color?: `#${string}` | 
         `rgb(${number}, ${number}, ${number})`

@@ -36,7 +36,7 @@ export const handler = define.handlers(async ctx => {
     }
 
     user.id = new TextDecoder().decode(decodeBase64Url(user.id))
-    const storedCredential = await db.get<Credential>(['credentials', user.id])
+    const storedCredential = await db.get<Credential>(['credentials', user.username])
     if(!storedCredential || !storedCredential.value || storedCredential.value.id !== credential.id) {
         db.close()
         return new Response('Wrong credential.', {
@@ -73,7 +73,7 @@ export const handler = define.handlers(async ctx => {
     }
 
     // Store credentials
-    await db.set(['credentials', user.id], {
+    await db.set(['credentials', user.username], {
         ...storedCredential.value,
         counter: verification.authenticationInfo.newCounter
     })

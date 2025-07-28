@@ -14,14 +14,11 @@ export const handler = define.handlers(async ctx => {
 
     const db = await kv()
     // Check username duplicates
-    const entries = db.list<User>({ prefix: ['users'] })
-    for await (const entry of entries) {
-        if(entry.value.username === username) {
-            db.close()
-            return new Response(`${username}'s account already exists!`, {
-                status: 400
-            })
-        }
+    if((await db.get<User>(['users', username])).value) {
+        db.close()
+        return new Response(`${username}'s account already exists!`, {
+            status: 400
+        })
     }
 
     // Generate credential options

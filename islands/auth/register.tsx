@@ -59,19 +59,19 @@ export default () => {
     const error = useSignal('')
 
     return <section class="grid grid-rows-2 gap-2 items-center relative">
-        <input placeholder="username" value={username} onInput={event => {
+        <input autoFocus ref={input} placeholder="username" value={username} onInput={event => {
                 username.value = event.currentTarget.value
                 if(error.value.length > 0 && username.value.length >= 6) error.value = ''
             }}
             onKeyPress={async (event) => {
-                if(event.key === 'Enter' && username.value.length >= 6) {
+                if(event.key === 'Enter' && username.value.length >= 6 && input.value) {
                     
-                    event.currentTarget.disabled = true
+                    input.value.disabled = true
                     const issue = await register(username.value)
-                    event.currentTarget.disabled = false
+                    input.value.disabled = false
 
                     if(issue) error.value = issue
-                    else event.currentTarget.value = ''
+                    else input.value.value = ''
                 }
             }} autoComplete="username"
             class="px-5 py-3.5 bg-solis/25 text-xl font-semibold text-solis rounded-xl

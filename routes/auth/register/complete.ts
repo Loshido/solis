@@ -27,7 +27,8 @@ export const handler = define.handlers(async ctx => {
     const user = {
         id: new TextDecoder().decode(decodeBase64Url(userData.id)),
         username: userData.displayName,
-        channels: []
+        channels: [],
+        invitations: []
     }
 
     const db = await kv()
@@ -67,9 +68,9 @@ export const handler = define.handlers(async ctx => {
     const { credential: response } = verification.registrationInfo
    
     // Store user
-    await db.set(['users', user.id], user)
+    await db.set(['users', user.username], user)
     // Store credentials
-    await db.set(['credentials', user.id], {
+    await db.set(['credentials', user.username], {
         id: response.id,
         publicKey: response.publicKey,
         createdat: Date.now(),

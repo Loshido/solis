@@ -15,14 +15,7 @@ export const handler = define.handlers(async ctx => {
     const db = await kv()
 
     // Check if user exists
-    let user: User | undefined = undefined
-    const entries = db.list<User>({ prefix: ['users'] })
-    for await (const entry of entries) {
-        if(entry.value.username === username) {
-            user = entry.value
-            break;
-        }
-    }
+    const { value: user } = await db.get<User>(['users', username])
     if(!user) {
         db.close()
         return new Response(`${username} doesn't exist!`, {
@@ -31,7 +24,7 @@ export const handler = define.handlers(async ctx => {
     }
 
     // Get credential's id
-    const { value: credential } = await db.get<Credential>(['credentials', user.id])
+    const { value: credential } = await db.get<Credential>(['credentials', user.username])
     if(!credential) {
         db.close()
         log('auth', `/auth/login/begin caught an account without credential`, 'DEBUG')

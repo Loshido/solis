@@ -10,7 +10,8 @@ _fresh/
 # npm + other dependencies
 node_modules/
 vendor/
-data/kv.db
+data/kv.db*
 data/logs/*
 data/channels/*
+static/bucket/*
 

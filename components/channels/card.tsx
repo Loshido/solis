@@ -6,7 +6,7 @@ interface CardProps {
 }
 
 export default ({ href, name, image, color }: CardProps) => <a href={href} 
-    class="group cursor-pointer">
+    class="group cursor-pointer appear">
     <div class="aspect-square bg-solis/5 rounded-xl 
         group-hover:bg-solis/15 transition-colors
         flex items-center justify-center"

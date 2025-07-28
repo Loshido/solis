@@ -1,7 +1,19 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: "jetbrain";
+    src: url(/fonts/jetbrain.ttf);
+}
+
 @theme {
     --color-solis: #3954DB;
+    --font-jetbrain: "jetbrain"
+}
+::selection{
+    background-color: #3954DB90;
+}
+body{
+    font-family: "jetbrain";
 }
 
 body:has(.no-scroll){
@@ -60,3 +72,9 @@ body:has(.no-scroll){
     to { transform: rotate(360deg); }
 }
 .spin{ animation: spin linear infinite }
+
+@keyframes slide-in {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+.slide-in { animation: slide-in .5s ease-in-out; }

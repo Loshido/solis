@@ -1,4 +1,5 @@
 import { LucideSearch } from "lucide-preact"
+const DEBOUNCE_TIME = 300
 
 interface SearchProps {
     onUpdate: (input: string) => Promise<void> | void
@@ -10,14 +11,13 @@ export default function SearchBar({ onUpdate }: SearchProps) {
         <input type="text" placeholder="Search channels"
             class="text-solis/60 text-xl outline-0 w-full h-full"
             onInput={(event) => {
-                console.log('aaaaaaaaaaahhhhhhhhhh', event)
                 const t = event.target as HTMLInputElement
                 const value = t.value
                 setTimeout(() => {
                     if(value === t.value) {
                         onUpdate((event.target as HTMLInputElement).value)
                     }
-                }, 600);
+                }, DEBOUNCE_TIME);
             }}
             />
     </div>
