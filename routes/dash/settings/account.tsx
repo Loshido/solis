@@ -1,6 +1,7 @@
 import { define } from "utils";
-import { LucideChevronLeft, LucideContactRound, LucideTrash2, LucideLogOut } from "lucide-preact"
+import { LucideChevronLeft } from "lucide-preact"
 import Button from "components/button.tsx";
+import Account from "islands/dash/settings/account.tsx";
 
 export default define.page(() => {
     return <>
@@ -17,43 +18,6 @@ export default define.page(() => {
         </header>
 
         {/* Actions */}
-        <main class="flex flex-col px-2 py-3 select-none">
-            <div 
-                class="flex flex-nowrap flex-row items-center gap-4 px-2 py-2 min-h-16
-                    hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
-                <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
-                    <LucideContactRound class="w-6 h-6"/>
-                </div>
-                <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
-                    <p class="text-xl">
-                        Change username
-                    </p>
-                </div>
-            </div>
-            <div 
-                class="flex flex-nowrap flex-row items-center gap-4 px-2 py-2 min-h-16
-                    hover:bg-red-600/5 rounded-xl cursor-pointer transition-colors">
-                <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
-                    <LucideLogOut class="w-6 h-6"/>
-                </div>
-                <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
-                    <p class="text-xl">
-                        Disconnect
-                    </p>
-                </div>
-            </div>
-            <div 
-                class="flex flex-nowrap flex-row items-center gap-4 px-2 py-2 min-h-16
-                    hover:bg-red-600/5 rounded-xl cursor-pointer transition-colors">
-                <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
-                    <LucideTrash2 class="w-6 h-6"/>
-                </div>
-                <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
-                    <p class="text-xl">
-                        Delete account
-                    </p>
-                </div>
-            </div>
-        </main>
+        <Account/>
     </>
 })

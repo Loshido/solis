@@ -1,6 +1,7 @@
 import { define } from "utils";
-import { LucideChevronLeft, LucideMonitorSmartphone } from "lucide-preact"
+import { LucideChevronLeft } from "lucide-preact"
 import Button from "components/button.tsx";
+import Security from "islands/dash/settings/security.tsx";
 
 export default define.page(() => {
     return <>
@@ -17,22 +18,6 @@ export default define.page(() => {
         </header>
 
         {/* Actions */}
-        <main class="flex flex-col px-2 py-3 select-none">
-            <div 
-                class="flex flex-nowrap flex-row items-start gap-4 px-2 py-2 min-h-16
-                    hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
-                <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
-                    <LucideMonitorSmartphone class="w-6 h-6"/>
-                </div>
-                <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
-                    <p class="text-xl">
-                        Connected devices
-                    </p>
-                    <p class="font-light text-sm">
-                        Manage connected devices
-                    </p>
-                </div>
-            </div>
-        </main>
+        <Security/>
     </>
 })
