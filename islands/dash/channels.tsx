@@ -60,10 +60,8 @@ export default ({ channels, invitations }: Props) => {
                             name={ ch.id }
                             image={ ch.image }
                             color={ ch.color }/>)
-                    : <div class="w-full col-span-2 text-center  font-medium text-black/50">
-                        <p>
-                            It seems like you have no channels, 
-                        </p>
+                    : <div class="w-full col-span-2 text-center my-32  font-medium text-black/50">
+                        <img src="/img/dino.png" alt="Lonely dino..." class="w-1/2 mx-auto"/>
                         <p class="text-xs align-baseline flex flex-row gap-2 items-center justify-center">
                             try to create one
                             <LucidePlug class="w-4 h-4 rotate-45 -z-10 isolate"/>

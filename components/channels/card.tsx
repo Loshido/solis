@@ -12,7 +12,7 @@ export default ({ href, name, image, color }: CardProps) => <a href={href}
         flex items-center justify-center"
         style={{backgroundColor: color}}>
         {
-            image && <img src={image} alt={name} class="w-full h-full p-8 rounded" />
+            image && <img src={image} alt={name} class="w-full h-full p-8 rounded aspect-auto object-cover" />
         }
     </div>
     <p class="mt-2 font-medium select-none">

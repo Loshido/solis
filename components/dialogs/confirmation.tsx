@@ -19,7 +19,7 @@ export default ({ prompt, yes, no, ...props }: ConfirmationProps) => {
         onClick={(event) => {
             if(event.currentTarget === event.target && no?.action) no.action()
         }}>
-        <h2 class="appear text-xl font-medium">
+        <h2 class="appear text-xl font-medium text-center max-w-4/5">
             { prompt }
         </h2>
 

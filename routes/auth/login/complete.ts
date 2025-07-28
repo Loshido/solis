@@ -56,7 +56,8 @@ export const handler = define.handlers(async ctx => {
                 publicKey: storedCredential.value.publicKey,
                 counter: storedCredential.value.counter,
                 transports: storedCredential.value.transports
-            }
+            },
+            requireUserVerification:  false
         })
     } catch(error) {
         console.error(error)

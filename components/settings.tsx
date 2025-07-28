@@ -13,7 +13,7 @@ interface SettingProps {
     dialog?: JSX.Element
 }
 export default ({ actions, dialog }: SettingProps) => {
-    return <main class="flex flex-col px-2 py-3 select-none">
+    return <main class="no-scroll h-full flex flex-col px-2 py-3 select-none">
         {
             actions.map((action, i) => <a key={i}
                 href={action.href ? action.href : undefined}

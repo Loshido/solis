@@ -6,6 +6,7 @@ import type { Channel } from "services/kv.ts"
 
 export default () => {
     const context = useSignal<null | Omit<Channel, 'owner'>>(null)
+    const id = useSignal<string>('TAC-6')
 
     return <>
         <Button onClick={() => {
@@ -23,23 +24,31 @@ export default () => {
                     if(event.currentTarget === event.target) context.value = null
                 }}>
                 <section class="slide-in z-50 absolute bottom-0 left-0 rounded-t-4xl 
-                    w-full mt-auto h-4/5 border border-solis/25 bg-white px-6 py-3
+                    w-full mt-auto h-4/5 border border-solis/25 bg-white px-6 py-4
                     flex flex-col gap-4 pb-10">
-                    <p class="text-3xl font-medium leading-14 select-none">
-                        Etablish a channel called <span 
-                            class="px-3 py-1.5 bg-solis/10 rounded-lg outline-none"
+                    <div class="text-lg sm:text-3xl font-medium leading-8 sm:leading-12 select-none">
+                        <p>
+                            Etablish a channel called 
+                        </p>
+                        <p class="px-2 py-1 bg-solis/10 rounded-lg outline-none"
                             contentEditable onInput={(event) => {
-                                context.value!.id = (event.target as HTMLSpanElement).innerText
+                                id.value = (event.target as HTMLParagraphElement).innerText
+                                context.value!.id = (event.target as HTMLParagraphElement).innerText
                             }}>
                             TAC-6
-                        </span> which could be descripted as <span class="px-3 py-1.5 bg-solis/10 rounded-lg outline-none"
+                        </p> 
+                        <p>
+                            which could be descripted as 
+                        </p>
+                        <p class="px-3 py-1.5 bg-solis/10 rounded-lg outline-none text-sm"
                             contentEditable
                             onInput={(event) => {
-                                context.value!.description = (event.target as HTMLSpanElement).innerText
+                                context.value!.description = (event.target as HTMLParagraphElement).innerText
                             }}>
                             priority channel for realtime situational directives
-                        </span>
-                    </p>
+                        </p>
+
+                    </div>
                     <div class="grid grid-cols-5 p-4 gap-4 items-center">
                         <div class="col-span-2">
                             <div id="channel-card" class="aspect-square bg-solis/5 rounded-xl 
@@ -48,7 +57,7 @@ export default () => {
                                 <img src="#" alt="" class="w-full h-full p-8 rounded hidden" />
                             </div>
                             <p class="mt-2 font-medium select-none">
-                                TAC-6
+                                { id }
                             </p>
                         </div>
                         <div class="col-span-3 flex flex-col gap-4 justify-evenly pb-8">
@@ -69,7 +78,7 @@ export default () => {
                             </label>
                             <label for="img" class="px-2 py-1.5 rounded select-none cursor-pointer 
                                 bg-black/5 hover:bg-black/15 transition-colors">
-                                Pick image
+                                Pick an image
                                 <input type="file" id="img" class="invisible w-0" accept="image/png"
                                     onInput={(event) => {
                                         const target = event.target as HTMLInputElement
@@ -121,6 +130,7 @@ export default () => {
                                 // TODO handle UX
                             } else {
                                 context.value = null
+                                location.reload()
                             } 
                         }}>
                         Etablish

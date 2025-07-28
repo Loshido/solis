@@ -1,9 +1,10 @@
 import { define } from "utils";
 import { LucideChevronLeft, LucideAirVent, LucideSquarePen, LucideCopy, LucideUsers } from "lucide-preact"
 import Button from "components/button.tsx";
+import SlideDash from "islands/dash/slide-to-dash.tsx";
 
 export default define.page((props) => {
-    return <>
+    return <SlideDash>
         {/* Navigation bar */}
         <header class="p-4 h-16 flex flex-row items-center justify-center relative">
             <nav class="absolute top-0 left-4 flex flex-row gap-2 items-center h-full *:transition-colors">
@@ -52,5 +53,5 @@ export default define.page((props) => {
                     </div>)
             }
         </main>
-    </>
+    </SlideDash>
 })

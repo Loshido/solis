@@ -1,6 +1,7 @@
 import { define } from "utils";
 import { LucideChevronLeft, LucideUser, LucideBellRing, LucideShield  } from "lucide-preact"
 import Button from "components/button.tsx";
+import SlideToDash from "islands/dash/slide-to-dash.tsx";
 
 export default define.page(() => {
     return <>
@@ -17,52 +18,54 @@ export default define.page(() => {
         </header>
 
         {/* Actions */}
-        <main class="flex flex-col px-2 py-3 select-none">
-            <a href="/dash/settings/account"
-                class="flex flex-nowrap flex-row items-start gap-4 px-2 py-2 min-h-16
-                    hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
-                <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
-                    <LucideUser class="w-6 h-6"/>
-                </div>
-                <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
-                    <p class="text-xl">
-                        Account
-                    </p>
-                    <p class="font-light text-sm">
-                        Manage your account details
-                    </p>
-                </div>
-            </a>
-            <a href="/dash/settings/notifications"
-                class="flex flex-nowrap flex-row items-start gap-4 px-2 py-2 min-h-16
-                    hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
-                <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
-                    <LucideBellRing class="w-6 h-6"/>
-                </div>
-                <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
-                    <p class="text-xl">
-                        Notifications
-                    </p>
-                    <p class="font-light text-sm">
-                        Customize your notification preferences
-                    </p>
-                </div>
-            </a>
-            <a href="/dash/settings/security"
-                class="flex flex-nowrap flex-row items-start gap-4 px-2 py-2 min-h-16
-                    hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
-                <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
-                    <LucideShield class="w-6 h-6"/>
-                </div>
-                <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
-                    <p class="text-xl">
-                        Security
-                    </p>
-                    <p class="font-light text-sm">
-                        Enhance your account security
-                    </p>
-                </div>
-            </a>
-        </main>
+        <SlideToDash>
+            <main class="no-scroll flex flex-col h-full px-2 py-3 select-none">
+                <a href="/dash/settings/account"
+                    class="flex flex-nowrap flex-row items-start gap-4 px-2 py-2 min-h-16
+                        hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
+                    <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
+                        <LucideUser class="w-6 h-6"/>
+                    </div>
+                    <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
+                        <p class="text-xl">
+                            Account
+                        </p>
+                        <p class="font-light text-sm">
+                            Manage your account details
+                        </p>
+                    </div>
+                </a>
+                <a href="/dash/settings/notifications"
+                    class="flex flex-nowrap flex-row items-start gap-4 px-2 py-2 min-h-16
+                        hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
+                    <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
+                        <LucideBellRing class="w-6 h-6"/>
+                    </div>
+                    <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
+                        <p class="text-xl">
+                            Notifications
+                        </p>
+                        <p class="font-light text-sm">
+                            Customize your notification preferences
+                        </p>
+                    </div>
+                </a>
+                <a href="/dash/settings/security"
+                    class="flex flex-nowrap flex-row items-start gap-4 px-2 py-2 min-h-16
+                        hover:bg-solis/5 rounded-xl cursor-pointer transition-colors">
+                    <div class="h-16 w-16 bg-black/5 rounded-xl aspect-square flex items-center justify-center">
+                        <LucideShield class="w-6 h-6"/>
+                    </div>
+                    <div class="flex flex-col h-full w-[calc(100% - 64px)] justify-between py-1">
+                        <p class="text-xl">
+                            Security
+                        </p>
+                        <p class="font-light text-sm">
+                            Enhance your account security
+                        </p>
+                    </div>
+                </a>
+            </main>
+        </SlideToDash>
     </>
 })
