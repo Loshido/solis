@@ -1,9 +1,8 @@
-import { openKv } from "@deno/kv"
 import { KV_PATH } from "./env.ts";
 import type { AuthenticatorTransportFuture } from "@simplewebauthn/server"
 
 export default async () => {
-    return await openKv(KV_PATH)
+    return await Deno.openKv(KV_PATH || undefined)
 }
 
 // challenges/[challenge] -> Challenge

@@ -4,7 +4,7 @@
         "check": "deno fmt --check . && deno lint . && deno check **/*.ts && deno check **/*.tsx",
         "dev": "deno run -A --env-file=.env --watch=static/,routes/ dev.ts",
         "build": "deno run -A --env-file=.env dev.ts build",
-        "start": "deno serve -A --env-file=.env _fresh/server.js",
+        "start": "deno serve --parallel -A --env-file=.env _fresh/server.js",
         "update": "deno run -A -r jsr:@fresh/update ."
     },
     "lint": {
@@ -14,7 +14,6 @@
     },
     "exclude": ["**/_fresh/*"],
     "imports": {
-        "@deno/kv": "npm:@deno/kv@^0.10.0",
         "@panva/jose": "jsr:@panva/jose@^6.0.12",
         "@simplewebauthn/server": "jsr:@simplewebauthn/server@^13.1.1",
         "@std/encoding": "jsr:@std/encoding@^1.0.10",
@@ -32,7 +31,7 @@
     },
     "nodeModulesDir": "auto",
     "compilerOptions": {
-        "lib": ["dom", "dom.asynciterable", "dom.iterable", "deno.ns"],
+        "lib": ["dom", "dom.asynciterable", "dom.iterable", "deno.ns", "deno.unstable"],
         "jsx": "precompile",
         "jsxImportSource": "preact",
         "jsxPrecompileSkipElements": [

@@ -23,7 +23,6 @@
     "jsr:@std/path@^1.1.1": "1.1.1",
     "jsr:@std/semver@1": "1.0.5",
     "jsr:@std/uuid@^1.0.7": "1.0.9",
-    "npm:@deno/kv@0.10": "0.10.0",
     "npm:@hexagon/base64@^1.1.27": "1.1.28",
     "npm:@levischuck/tiny-cbor@~0.2.2": "0.2.11",
     "npm:@opentelemetry/api@^1.9.0": "1.9.0",
@@ -188,15 +187,6 @@
       "integrity": "sha512-7l9rlxS7KERpnRSXGoot+zXBeaDt4Dt+LShTva+XwuYqQstnxTuo0xLNzt36+nYHtMeVGCxZUzwQFCNp8686Sw==",
       "os": ["win32"],
       "cpu": ["x64"]
-    },
-    "@deno/kv@0.10.0": {
-      "integrity": "sha512-fbQFYsWvTbyjj6QhXOXFzb3AaMuStOTgUQvgoHf0bJ2s8csklV4V5NkGvi/aNH3uqmduYw+LULz9pPerpiwNfA==",
-      "optionalDependencies": [
-        "@deno/kv-darwin-arm64",
-        "@deno/kv-darwin-x64",
-        "@deno/kv-linux-x64-gnu",
-        "@deno/kv-win32-x64-msvc"
-      ]
     },
     "@emnapi/core@1.4.5": {
       "integrity": "sha512-XsLw1dEOpkSX/WucdqUhPWP7hDxSvZiY+fsUC14h+FtQ2Ifni4znbBt8punRX+Uj2JG/uDb8nEHVKvrVlvdZ5Q==",
@@ -1007,7 +997,6 @@
       "jsr:@panva/jose@^6.0.12",
       "jsr:@simplewebauthn/server@^13.1.1",
       "jsr:@std/encoding@^1.0.10",
-      "npm:@deno/kv@0.10",
       "npm:@preact/signals@^2.0.4",
       "npm:lucide-preact@0.526",
       "npm:preact@^10.26.6",

@@ -3,7 +3,9 @@ export const RP_ID = Deno.env.get('RP_ID') ||'localhost'
 export const RP_ORIGIN = Deno.env.get('RP_ORIGIN') || 'http://localhost:8000'
 export const DOMAIN = Deno.env.get('DOMAIN') || 'localhost'
 
-export const KV_PATH = Deno.env.get('KV_PATH') || './data/kv.db'
+export const KV_PATH = Deno.env.get('KV_PATH') === 'disabled' 
+    ? undefined 
+    : Deno.env.get('KV_PATH') || './data/kv.db'
 export const LOG_PATH = Deno.env.get('LOG_PATH') || './data/logs/'
 export const BUCKET_PATH = Deno.env.get('BUCKET_PATH') || './static/bucket/'
 export const CHANNELS_PATH = Deno.env.get('CHANNELS_PATH') || './data/channels/'
