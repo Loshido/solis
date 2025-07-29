@@ -8,7 +8,6 @@ import PwaButton from "islands/pwa.tsx";
 import CreateChannel from "islands/dash/create-channel.tsx";
 
 import kv, { type User, type Channel } from "services/kv.ts"
-import log from "services/log.ts";
 
 interface PageProps {
     channels: Channel[], 
@@ -22,11 +21,6 @@ export const handler = define.handlers(async ctx => {
     const db = await kv()
     const { value: user } = await db.get<User>(['users', payload.username])
     if(!user) {
-        log(
-            'middleware', 
-            `${ payload.username } (${ payload.id }) is authentificated but not in database.`, 
-            'INFO'
-        )
         return ctx.redirect('/')
     }
 

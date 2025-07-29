@@ -54,7 +54,7 @@ export default () => {
                             <div id="channel-card" class="aspect-square bg-solis/5 rounded-xl 
                                 group-hover:bg-solis/15 transition-colors 
                                 flex items-center justify-center">
-                                <img src="#" alt="" class="w-full h-full p-8 rounded hidden" />
+                                <img src="#" alt="" class="w-full h-full p-8 rounded hidden aspect-auto object-cover" />
                             </div>
                             <p class="mt-2 font-medium select-none">
                                 { id }

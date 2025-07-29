@@ -53,7 +53,7 @@ export default ({ channels, invitations }: Props) => {
                 {
                     channels.length > 0
                     ? channels
-                        .filter(ch => ch.id.includes(search.value))
+                        .filter(ch => ch.id.toLowerCase().includes(search.value))
                         .map((ch, i) => <ChannelCard
                             key={i}
                             href={`/dash/${ ch.id }`}

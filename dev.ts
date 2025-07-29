@@ -1,14 +1,12 @@
 #!/usr/bin/env -S deno run -A --watch=static/,routes/
 import { Builder } from "fresh/dev";
-import { app } from "./main.ts";
 import tailwind from "services/tailwind.ts";
 
 const builder = new Builder();
 tailwind(builder)
 
 if (Deno.args.includes("build")) {
-    (await builder.build({ mode: 'development' }))(app)
+    await builder.build()
 } else {
-    // deno-lint-ignore require-await
-    await builder.listen(async () => ({ app: app }));
+    await builder.listen(() => import("./main.ts"));
 }

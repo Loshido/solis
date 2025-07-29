@@ -2,7 +2,8 @@ import { SignJWT, jwtVerify, type JWTPayload } from "@panva/jose"
 
 export interface Payload extends JWTPayload {
     id: string,
-    username: string
+    username: string,
+    challenge: string
 }
 
 import { JWT_ISSUER, JWT_AUDIENCE } from "./env.ts"

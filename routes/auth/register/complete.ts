@@ -81,13 +81,20 @@ export const handler = define.handlers(async ctx => {
     await db.delete(['challenges', clientDataJSON.challenge])
     db.close()
 
+    const addr = ctx.info.remoteAddr
+    const net = addr.transport === 'tcp' || addr.transport === 'udp'
+    const origin = net ? `${addr.hostname}` : ''
+
     log('auth', `/auth/register/complete challenge succeed ${ (challenge.key[1] as string).slice(0, 6) }`, 'TRACE')
-    log('auth', `${user.username} (${user.id}) successfuly registered`, 'INFO')
+    log('auth', `${user.username} (${user.id}, ${origin}) successfuly registered`, 'INFO')
 
     // Sign a JWT
     const jwt = await sign({
         id: user.id,
-        username: user.username
+        username: user.username,
+
+        // We can then found which authentification (date-time) gave this token
+        challenge: (challenge.key[1] as string).slice(0, 6)
     })
 
     // Give JWT to the end user

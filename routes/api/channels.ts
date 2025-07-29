@@ -1,6 +1,7 @@
 import { define } from "utils";
 import isAuthentificated from "services/cookie.ts"
 import { BUCKET_PATH } from "services/env.ts";
+import sharp from "sharp"
 import log from "services/log.ts";
 import kv, { type Channel, type User } from "services/kv.ts";
 
@@ -31,7 +32,7 @@ export const handler = define.handlers({
 
         const body = await ctx.req.formData()
         const partial = parseChannel(body)
-        if(!partial) return new Response('missing field', {
+        if(!partial) return new Response('Missing field', {
             status: 400
         })
 
@@ -54,8 +55,18 @@ export const handler = define.handlers({
 
         if(partial.image) {
             const path = BUCKET_PATH + partial.id + '.png'
-            Deno.writeFileSync(path, await partial.image.bytes())
-            log('api', `channel ${ partial.id }'s image has been uploaded to "${path}" by ${ verified.username }`, 'TRACE')
+            sharp(await partial.image.bytes())
+                .resize(256, 256, {
+                    fit: 'cover'
+                })
+                .toBuffer((err, buffer) => {
+                    if(err) {
+                        log('api', `sharp failed to resize ()`, 'ERROR')
+                        return
+                    }
+                    Deno.writeFileSync(path, buffer)
+                    log('api', `channel ${ partial.id }'s image has been uploaded to "${path}" by ${ verified.username }`, 'TRACE')
+                })
         }
 
         const channel: Channel = {

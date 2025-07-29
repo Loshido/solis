@@ -4,7 +4,7 @@
         "check": "deno fmt --check . && deno lint . && deno check **/*.ts && deno check **/*.tsx",
         "dev": "deno run -A --env-file=.env --watch=static/,routes/ dev.ts",
         "build": "deno run -A --env-file=.env dev.ts build",
-        "start": "deno run -A --env-file=.env main.ts",
+        "start": "deno serve -A --env-file=.env _fresh/server.js",
         "update": "deno run -A -r jsr:@fresh/update ."
     },
     "lint": {
@@ -22,6 +22,7 @@
         "lucide-preact": "npm:lucide-preact@^0.526.0",
         "preact": "npm:preact@^10.26.6",
         "@preact/signals": "npm:@preact/signals@^2.0.4",
+        "sharp": "npm:sharp@^0.34.3",
         "tailwindcss": "npm:tailwindcss@^4.1.11",
 
         "utils": "./utils.ts",

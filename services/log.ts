@@ -1,12 +1,6 @@
 import { LOG_PATH } from "./env.ts"
 
-type LogLevel = 'INFO' |
-    'DEBUG' |
-    'WARNING' |
-    'ERROR' | 
-    'CRITICAL' |
-    'TRACE'
-
+type LogLevel = 'DEBUG'| 'TRACE'| 'INFO'| 'WARNING'| 'ERROR'| 'CRITICAL'
 const levels = ['DEBUG', 'TRACE', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 
 export default (service: string, message: string, level?: LogLevel) => {

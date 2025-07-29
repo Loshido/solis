@@ -1,7 +1,7 @@
 import { JSX } from "preact";
 import { useSignal } from "@preact/signals";
 
-const SLIDE_DISTANCE = 200
+const SLIDE_DISTANCE = 150
 
 interface SlideProps {
     // At which distance is it considered as slide
