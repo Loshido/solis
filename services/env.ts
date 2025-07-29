@@ -2,6 +2,7 @@ export const RP_NAME = Deno.env.get('RP_NAME') || 'Solis'
 export const RP_ID = Deno.env.get('RP_ID') ||'localhost'
 export const RP_ORIGIN = Deno.env.get('RP_ORIGIN') || 'http://localhost:8000'
 export const DOMAIN = Deno.env.get('DOMAIN') || 'localhost'
+export const LOG_MODE = Deno.env.get('LOG_MODE') || 'file' // 'file' | 'console'
 
 export const KV_PATH = Deno.env.get('KV_PATH') === 'disabled' 
     ? undefined 
